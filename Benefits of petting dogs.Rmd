@@ -1,0 +1,206 @@
+---
+title             : "An examination of the benefits of petting dogs before exams"
+shorttitle        : "Benefits of petting dogs before exams"
+
+author: 
+  - name          : "Cylcia Bolibaugh"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "University of York, UK"
+    email         : "my@email.com"
+    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+      - Conceptualization
+      - Writing - Original Draft Preparation
+      - Writing - Review & Editing
+
+affiliation:
+  - id            : "1"
+    institution   : "University of York"
+
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+  Enter author note here.
+
+abstract: |
+  This is an example manuscript used to demonstrate a reproducible, collaborative workflow using RMarkdown, Github, and the Papaja and trackdown packages.
+  
+  
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "reproducible manuscripts, collaborative workflow"
+wordcount         : "X"
+
+bibliography      : ["r-references.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "jou"
+output            : papaja::apa6_docx
+---
+
+```{r setup, include = FALSE}
+library(cowplot)
+library("papaja")
+library(ggplot2)
+r_refs("r-references.bib")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+A recent study suggested that spending time with a pet acts as a buffer against psychological stress (Ratschen et al., 2020). Imagine that we conducted an experiment to explore whether this effect generalised to stress caused by university exams. Specifically, we hypothesised that students who spent time with a university health and wellbeing dog before an exam would have fewer feelings of stress relative to students who only looked at pictures of dogs before an exam. 
+
+In order to test the hypothesis we recruited 200 students who had imminent exams and self-reported that they felt stressed, and assigned half of them to pet the university dog, and half to look through a catalogue of dog pictures. We then assessed how stressed they felt on the Stress-o-metre Scale (1-100).
+
+# Methods
+
+## Participants
+We recruited two hundred undergraduate students. All students were screened to ensure that they planned to sit an exam within the next 5 days, and that they reported feeling stressed.
+
+## Material
+We randomly assigned half of the participants to pet the university dog, and half to look through a catalogue of dog pictures. We then assessed how stressed they felt on the Stress-o-metre Scale (1-100). 
+
+
+
+```{r dog_images, echo=FALSE}
+
+# create inline figures with 2 images
+live_dog <- ggdraw() + 
+  draw_image("University-of-Lancashire-Guide-Dogs.jpg", width = .66)  
+
+book_dog <- ggdraw() + draw_image("Dog-catalogue.jpg") 
+
+conditions <- plot_grid(live_dog, book_dog, ncol = 2, labels = c("Live dog", "Dog pictures"), label_y = .2)
+
+```
+```{r conditions, echo=FALSE, fig.cap = "This is a test"}
+# print figure 
+conditions
+```
+
+## Procedure
+Our imaginary students were randomly assigned into the "Live Dog" condition or the "Dog Pictures" condition. Each participant sat the intervention and test individually. They spent 5 minutes either petting the dog, or looking at dog pictures. They then completed the Stress-o-Metre self-assessment in a quiet room.
+
+## Data analysis
+The distribution of scores of the Stress-o-Metre scale from the "Live Dog" and "Dog Pictures" groups are depicted in Figures 2 and 3 below. The reliability of the Stress-0-metre Scale has not been established.
+
+
+
+```{r ind-vars, echo=FALSE}
+## (For the purposes of this simulation, we have a simple between subjects design, where the independent (grouping) variable has two levels, and the dependent variable is from a normal distribution.) ##
+
+# Simulate normally distributed data for an independent samples t-test
+muA <- 50 #what's the population mean for condition A?
+muB <- 55 #what's the population mean for condition B?
+
+n1 <- 100 #how many participants group A?
+n2 <- 100 #how many participants group B?
+
+sigma1 <- 20 #population standard deviation of condition A?
+sigma2 <- 20 #population standard deviation of condition B?
+```
+
+```{r ind-dat, echo=FALSE}
+# Generate the scores using the `rnorm()` function, then plot the distribution of scores for each group.
+
+A_scores <- rnorm(n1,muA,sigma1) #simulate a vector of 100 deviates from normal distribution
+B_scores <- rnorm(n2,muB,sigma2) #simulate a vector of 100 deviates from normal distribution
+```
+
+```{r histA, fig.cap = "Distribution of scores from Live dog condition"}
+hist(A_scores, main = "Live Dog condition", xlab = "Stress-O-Metre scores")
+```
+     
+     
+     
+    
+```{r histB, fig.cap = "Distribution of scores from Dog pictures condition"}
+hist(B_scores, main = "Dog Pictures condition", xlab = "Stress-O-Metre scores")
+```
+
+[[chunk-wide dog]]
+
+[[chunk-long dog]]
+
+We used `r cite_r("r-references.bib")` for all our analyses.
+
+# Results
+
+
+
+```{r t-test1, eval=FALSE, include=FALSE}
+# I can now run my inferential test on my new data.
+t.test(A_scores,B_scores)
+```
+
+```{r t-test2}
+# We want to report the results from the statistical test in an inline report (i.e. a sentence), so we assign it to an object and extract the parameters we need in text:
+
+mod1 <- broom::tidy(t.test(A_scores,B_scores))
+```
+
+```{r track-uoload, eval=FALSE, include=FALSE}
+# trackdown package to create google doc for collaboration
+
+trackdown::upload_file(
+  file = "Benefits of petting dogs.Rmd",
+  gfile = NULL,
+  gpath = "trackdown/Demo",
+  shared_drive = NULL,
+  hide_code = TRUE,
+  path_output = "Benefits-of-petting-dogs.docx"
+)
+```
+A `r mod1$method` indicated that participants who pet dogs (*M* = `r round(mean(A_scores),2)`, *SD* = `r round(sd(A_scores),2)`) did [not] score significantly lower than participants who looked at pictures of dogs (*M* = `r round(mean(B_scores),2)`, *SD* = `r round(sd(B_scores),2)`), *t*(`r round(mod1$parameter,2)`) = `r round(mod1$statistic,2)`, *p* = `r round(mod1$p.value,2)` on the Stress-O-Metre Scale.
+
+These results can be seen in Figure 4.     
+
+[[chunk-dog-plot]]
+
+# Discussion
+
+This is a poorly designed study with multiple confounds. In future research, the materials and intervention will need to be validated, and the Stress-O-Metre’s reliability established. The design would benefit from a pre-test as well.
+
+\newpage
+
+# References
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id="refs" custom-style="Bibliography"></div>
+\endgroup
+
+[[chunk-track-upload]]
+```{r track-update, eval=FALSE, include=FALSE}
+# trackdown package to create google doc for collaboration
+
+update_file(
+  file = "Benefits of petting dogs.Rmd",
+  gfile = NULL,
+  gpath = "trackdown",
+  shared_drive = NULL,
+  hide_code = TRUE,
+  path_output = "Benefits-of-petting-dogs.docx"
+)
+```
+```{r track-down, eval=FALSE, include=FALSE}
+trackdown::download_file(
+  file = "Benefits of petting dogs.Rmd",
+  gfile = NULL, 
+  gpath = "trackdown", 
+  shared_drive = NULL)
+
+```
