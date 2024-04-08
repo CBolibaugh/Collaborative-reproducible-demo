@@ -1,11 +1,5 @@
-# Collaborative-reproducible-demo
-
-Using Git(hub), RMarkdown and Google Docs (via the Trackdown package) for a reproducible, collaborative workflow.
-
 
 ## Reproducible *and Collaborative* Workflows
-
-Using Git(hub), RMarkdown and Google Docs (via the `Trackdown` package) for a reproducible, collaborative workflow.
 
 This repo is for you if you are interested in using Rmarkdown, and the Papaja template to draft APA formatted manuscripts and you don't work alone! Unfortunately Rmarkdown documents are not great for writing collaboratively. Rmds can be used to generate Word documents, but then you may be stuck emailing these Word docs between collaborators (with file names that grow as different co-authors edit them). You might choose to convert your Word documents to Google docs, which is great because you can now write collaboratively and make use of the built-in version control and track-changes features instead of emailing, but in either case you will still have a problem: after everyone has finished editing the text, you will need to manually re-integrate the changes into the local copy of your Rmd formatted manuscript. I do not enjoy doing this. The process can be particularly finicky when carrying out small changes throughout a manuscript (e.g. as can happen during rounds of review & resubmit).
 
