@@ -11,9 +11,7 @@ Another solution is the [`Trackdown` package](https://github.com/ClaudioZandonel
 
 Rmarkdown (& quarto) are great for creating dynamic manuscripts. Dynamic manuscripts combine code, the output of that code, and narrative writing all in one file. In a dynamic document, the code is executed within the document in real time and it produces "living" figures, tables, models, etc. that are updated any time the code itself or the underlying data is updated. Because of this, dynamic documents are also reproducible.
 
-The `Papaja` package is an R package that provides document formats to produce complete APA manuscripts from RMarkdown-files (PDF and Word documents) and helper functions that facilitate reporting statistics, tables, and plots.
-
-have collaborators (who may or may not be familiar with Git(hub)). The workflow I describe below is most useful if you want to take advantage of Google docs' version control, track changes and comment features.
+The [`Papaja`](https://github.com/crsh/papaja) package is an R package that provides document formats to produce complete APA manuscripts from RMarkdown-files (PDF and Word documents) and helper functions that facilitate reporting statistics, tables, and plots.
 
 In this repository, I document the steps for creating a new project repository, cloning and pushing code changes to Github, and then using the `Trackdown` package to separately create a Google Doc from an RMarkdown file that is used for collaborative narrative work. I am using the `Papaja` package to generate an APA formatted manuscript.
 
@@ -65,7 +63,7 @@ For future iterations of this workflow, make sure to use the `update_file()` com
 
 4.  If there is a lot of data processing in the Rmd, the number of "hidden" code chunks in the Google Doc can start to be visually disorienting. Here a better practice is likely to be creating separate .Rmd or .R files for analyses that are sourced in the main Papaja .Rmd.
 
-5.  Think about how to initiate collaborators to this way of working. I use a brief onboarding document that re-iterates the text `Trackdown` places at the start of the Google Doc to explain how to interact with it, and run through it with collaborators.
+5.  Think about how to initiate collaborators to this way of working. I use a brief onboarding document that re-iterates the text `Trackdown` places at the start of the Google Doc to explain how to interact with it, and run through it with collaborators. I include this in the Google Drive folder with the other two documents. You can see a plain text example above: 00 README First!.txt
 
 6.  When working with a template like Papaja, include 3 separate chunks to use the `Trackdown` commands at the beginning or end of the manuscript. (I find it easier to keep them at the end.) All of these chunks should be set with options `eval = FALSE` and `include = FALSE` so they are not run when you knit the document. For this demonstration document, I've created the following three chunks (named `track-upload`, `track-update` and `track-download`) that I can run manually as needed:
 
